@@ -7,6 +7,7 @@ class Penilaian extends CI_Controller {
         $this->load->database();
         $this->load->model('Kegiatan_model');
         $this->load->model('Penilaian_model');
+        $this->load->model('Mitra_model');
     }
 
     public function index(){
@@ -47,16 +48,16 @@ class Penilaian extends CI_Controller {
     public function edit(){
 
         $data['judul'] = 'Edit';
-        // $data['kegiatan'] = 
         var_dump($this->input->post());
-        // $this->Penilaian_model->setPenilaianById();
-        $coba = $this->Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan'), true);
-        // var_dump($coba);
+
+        $coba = $this->Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan', true));
         
-        foreach ($this->Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan'), true) as $data):
+        foreach ($this->Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan', true)) as $data):
             $id = $data['id_penilaian'];
             $this->Penilaian_model->setPenilaianById($data['id_penilaian'],$this->input->post('kualitas_pekerjaan_'.$id),$this->input->post('ketepatan_waktu_'.$id),$this->input->post('etika_'.$id),$this->input->post('komunikasi_'.$id),$this->input->post('inisiatif_'.$id) );
         endforeach;
+
+        redirect($this->router->class."/detail/".$this->input->post('id_kegiatan', true));
 
     }
 
@@ -74,6 +75,19 @@ class Penilaian extends CI_Controller {
         $this->load->view('sipekerja/rekap/daftar_mitra');
         $this->load->view('sipekerja/template/footer');
     }
+
+    public function detail_mitra($id=""){
+
+        $data['judul'] = 'Detail Rekap Mitra';
+
+        $data['penilaian'] = $this->Penilaian_model->getPenilaianByMitra($id);
+        $data['mitra'] = $this->Mitra_model->getMitraById($id);
+        
+        // var_dump($data);
+        $this->load->view('sipekerja/template/header', $data);
+        $this->load->view('sipekerja/rekap/detail_mitra');
+        $this->load->view('sipekerja/template/footer');
+    }
     
     public function rekap_kegiatan(){
 
@@ -83,7 +97,8 @@ class Penilaian extends CI_Controller {
         $data['jenis_sampel'] = $this->input->post('jenis_sampel');
         $data['jenis_bidang'] = $this->input->post('jenis_bidang');
 
-        $data['kegiatan'] = $this->Kegiatan_model->getkegiatan();
+        $data['kegiatan'] = $this->Penilaian_model->getPenilaianPerKegiatan();
+        // var_dump($this->Penilaian_model->getPenilaianPerKegiatan());
         $this->load->view('sipekerja/template/header', $data);
         $this->load->view('sipekerja/rekap/daftar_kegiatan');
         $this->load->view('sipekerja/template/footer');

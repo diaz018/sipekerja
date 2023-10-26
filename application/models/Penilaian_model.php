@@ -14,6 +14,18 @@ class Penilaian_model extends CI_model{
         return $this->db->get()->result_array();
     }
 
+    public function getPenilaianPerKegiatan(){
+        $this->db->select('*, ROUND(AVG(kualitas_pekerjaan),2) as avg_kualitas_pekerjaan, 
+                            ROUND(AVG(ketepatan_waktu),2) as avg_ketepatan_waktu, 
+                            ROUND(AVG(etika),2) as avg_etika, ROUND(AVG(komunikasi),2) as avg_komunikasi, 
+                            ROUND(AVG(inisiatif),2) as avg_inisiatif, 
+                            COUNT(penilaian.id_kegiatan) as jumlah_mitra');
+        $this->db->from('penilaian');
+        $this->db->join('kegiatan', 'penilaian.id_kegiatan = kegiatan.id_kegiatan', 'left');
+        $this->db->group_by('penilaian.id_kegiatan');
+        return $this->db->get()->result_array();
+    }
+
     public function getPenilaianById($id){
         $this->db->select('kualitas_pekerjaan, ketepatan_waktu, etika, komunikasi,inisiatif, 
                             pegawai.nama as nama_pegawai, mitra.nama as nama_mitra,
@@ -25,6 +37,18 @@ class Penilaian_model extends CI_model{
         return $this->db->get()->result_array();
     }
 
+    public function getPenilaianByMitra($id){
+        $this->db->select('kualitas_pekerjaan, ketepatan_waktu, etika, komunikasi,inisiatif, 
+                            pegawai.nama as nama_pegawai, mitra.nama as nama_mitra,
+                            mitra.id_sobat as id_sobat, kegiatan.nama as nama_kegiatan, id_penilaian, kegiatan.id_kegiatan');
+        $this->db->from('penilaian');
+        $this->db->join('mitra', 'penilaian.id_sobat = mitra.id_sobat', 'left');
+        $this->db->join('pegawai', 'penilaian.nip_pegawai = pegawai.nip_pegawai', 'left');
+        $this->db->join('kegiatan', 'penilaian.id_kegiatan = kegiatan.id_kegiatan', 'left');
+        $this->db->where('penilaian.id_sobat', $id);
+        return $this->db->get()->result_array();
+    }
+    
     public function getIdPenilaianByKegiatan($id){
         $this->db->select('id_penilaian');
         $this->db->from('penilaian');

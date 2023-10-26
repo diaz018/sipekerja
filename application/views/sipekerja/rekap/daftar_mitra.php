@@ -60,9 +60,9 @@
             <div class="col-12">
                 <div class="card mt-3" style="border-color: #abcfff;">
                     <div class="card-header h-100">
-                        <a href="<?= base_url()?>Kegiatan/detail/<?= $data['id_kegiatan']?>" class="text-decoration-none text-dark">
+                        <a href="<?= base_url()?>Penilaian/detail_mitra/<?= $data['id_sobat']?>" class="text-decoration-none text-dark">
                         <h5 class="fw-bold mt-2 text-uppercase pointer text-center">
-                            <?= $data['nama']?>
+                            (<?= $data['id_sobat']?>) <?= $data['nama']?>
                         </h5>
                         </a>
                     </div>

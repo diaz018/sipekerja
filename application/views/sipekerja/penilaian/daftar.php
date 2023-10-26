@@ -43,10 +43,13 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card mt-3">
                     <div class="card-header h-100">
-                        <div class="badge bg-primary text-wrap" >
+                        <div class="badge text-wrap col-auto" style="background-color: <?= ($data['jenis_kegiatan'] == 'Lapangan') ? '#D2691E' : (($data['jenis_kegiatan'] == 'Pengolahan')?'#5F9EA0': '#EE82EE'); ?>;" >
                             <?= $data['jenis_kegiatan']?>
                         </div>
-                        <div class="badge bg-success text-wrap" >
+                        <div class="badge text-wrap col-auto " style="background-color: <?= ($data['jenis_sampel'] == 'Rumah Tangga') ? '#008080' : (($data['jenis_sampel'] == 'Perusahaan') ? '#FF6347' : '#EE82EE'); ?>;"  >
+                            <?= $data['jenis_sampel']?>
+                        </div>
+                        <div class="badge text-wrap col-auto <?= ($data['jenis_bidang'] == 'Pertanian') ? 'bg-success' : (($data['jenis_bidang'] == 'Ekonomi') ? 'bg-warning' : (($data['jenis_bidang'] == 'Sosial Kependudukan')?'bg-primary':'bg-lainnya')); ?>"  >
                             <?= $data['jenis_bidang']?>
                         </div>
                         
