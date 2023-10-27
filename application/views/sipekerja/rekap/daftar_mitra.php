@@ -5,6 +5,7 @@
     <div class="col-md-12">
             <div class="card mt-3" style="border-color: #abcfff;">
                 <form class="card-body" action="" method="POST">
+                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
 
                     <div class="row mt-3">
                         <div class="col-6">

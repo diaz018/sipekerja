@@ -8,7 +8,8 @@
                 
                 <h4 class="text-center fw-bold mt-3">PENDAFTARAN KEGIATAN</h4>
 
-                <form class="row g-3 card-body" action="<?= base_url()?>Kegiatan/tambah" method="POST">
+                <form class="row g-3 card-body" action="<?= base_url('Kegiatan');?>/tambah" method="POST">
+                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                     <div class="col-md-12">
                         <label for="nama" class="form-label">Nama Kegiatan</label>
                         <input type="text" class="form-control" id="nama" name="nama">

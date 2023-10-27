@@ -5,6 +5,7 @@
         <div class="col-md-12">
             <div class="card mt-3" style="border-color: #abcfff;">
                 <form class="card-body" action="" method="POST">
+                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                     <h5 class="text-center fw-bold">DAFTAR PENILAIAN KINERJA MITRA</h5>
                     <!-- <div class="row">
                         <div class="col-6">
@@ -53,7 +54,7 @@
                             <?= $data['jenis_bidang']?>
                         </div>
                         
-                        <a href="<?= base_url()?>Penilaian/detail/<?= $data['id_kegiatan']?>" class="text-decoration-none text-dark">
+                        <a href="<?= base_url('Penilaian');?>/detail/<?= $data['id_kegiatan']?>" class="text-decoration-none text-dark">
                         <h5 class="fw-bold mt-2 text-uppercase pointer">
                             <?= $data['nama']?>
                         </h5>

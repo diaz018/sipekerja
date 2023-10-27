@@ -9,9 +9,9 @@
             </div>
 
             <div class="overflow-x-scroll w-full">
-                <table class="table mt-3 table-hover text-uppercase">
+                <table class="table mt-3 table-hover text-uppercase align-middle">
                     <thead class="">
-                        <tr class="table-success text-center">
+                        <tr class="table-success text-center align-middle">
                             <th scope="col">Nama Mitra</th>
                             <th scope="col">Nama Penilai</th>
                             <th scope="col">
@@ -97,7 +97,8 @@
             
         </div>
         
-        <form class="col-auto <?= $halaman=='penilaian'?'':' hide'?>" action="<?= base_url()?>Penilaian/form" method="POST">
+        <form class="col-auto <?= $halaman=='penilaian'?'':' hide'?>" action="<?= base_url('Penilaian');?>/form" method="POST">
+            <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
             <input type="text" class="hide" name="id_kegiatan" id="id_kegiatan" value="<?= $kegiatan[0]['id_kegiatan']?>">
             
             <button class="col-auto btn btn-success mt-3">

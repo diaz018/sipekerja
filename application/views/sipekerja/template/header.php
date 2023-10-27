@@ -42,11 +42,11 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active text-white " style="font-size: small;" aria-current="page" href="<?= base_url()?>Kegiatan/">Daftar Kegiatan</a>
+            <a class="nav-link active text-white " style="font-size: small;" aria-current="page" href="<?= base_url('Kegiatan');?>">Daftar Kegiatan</a>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link text-white" style="font-size: small;" href="<?= base_url()?>Penilaian/">Penilaian Kinerja</a>
+            <a class="nav-link text-white" style="font-size: small;" href="<?= base_url('Penilaian');?>">Penilaian Kinerja</a>
           </li>
           
           <li class="nav-item">
@@ -58,8 +58,8 @@
               Rekap Kinerja
             </a>
             <ul class="dropdown-menu bg-biru">
-              <li><a class="dropdown-item text-white" href="<?= base_url()?>Penilaian/rekap_mitra">Rekap Kinerja Mitra</a></li>
-              <li><a class="dropdown-item text-white" href="<?= base_url()?>Penilaian/rekap_kegiatan">Rekap Kinerja Kegiatan</a></li>
+              <li><a class="dropdown-item text-white" href="<?= base_url('Penilaian');?>/rekap_mitra">Rekap Kinerja Mitra</a></li>
+              <li><a class="dropdown-item text-white" href="<?= base_url('Penilaian');?>/rekap_mitra">Rekap Kinerja Kegiatan</a></li>
             </ul>
           </li>
         </ul>

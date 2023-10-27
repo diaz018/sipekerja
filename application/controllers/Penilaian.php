@@ -5,9 +5,9 @@ class Penilaian extends CI_Controller {
     {
         parent::__construct();
         $this->load->database();
-        $this->load->model('Kegiatan_model');
-        $this->load->model('Penilaian_model');
-        $this->load->model('Mitra_model');
+        $this->load->model('Sipekerja_Kegiatan_model');
+        $this->load->model('Sipekerja_Penilaian_model');
+        $this->load->model('Sipekerja_Mitra_model');
     }
 
     public function index(){
@@ -15,7 +15,7 @@ class Penilaian extends CI_Controller {
         $data['judul'] = 'Daftar Penilaian Kinerja Mitra';
         // $data['kegiatan'] = 
         
-        $data['kegiatan'] = $this->Kegiatan_model->getKegiatanAktif();
+        $data['kegiatan'] = $this->Sipekerja_Kegiatan_model->getKegiatanAktif();
         $this->load->view('sipekerja/template/header', $data);
         $this->load->view('sipekerja/penilaian/daftar');
         $this->load->view('sipekerja/template/footer');
@@ -25,8 +25,8 @@ class Penilaian extends CI_Controller {
 
         $data['judul'] = 'Detail Kegiatan';
         // $data['kegiatan'] = 
-        $data['kegiatan'] = $this->Kegiatan_model->getkegiatanById($id);
-        $data['penilaian'] = $this->Penilaian_model->getPenilaianById($id);
+        $data['kegiatan'] = $this->Sipekerja_Kegiatan_model->getkegiatanById($id);
+        $data['penilaian'] = $this->Sipekerja_Penilaian_model->getPenilaianById($id);
         $data['halaman'] = 'penilaian';
 
         $this->load->view('sipekerja/template/header', $data);
@@ -38,8 +38,8 @@ class Penilaian extends CI_Controller {
 
         $data['judul'] = 'Form Penilaian Kinerja Mitra';
         // $data['kegiatan'] = 
-        $data['kegiatan'] = $this->Kegiatan_model->getKegiatanById($this->input->post("id_kegiatan", true));
-        $data['penilaian'] = $this->Penilaian_model->getPenilaianById($this->input->post("id_kegiatan", true));
+        $data['kegiatan'] = $this->Sipekerja_Kegiatan_model->getKegiatanById($this->input->post("id_kegiatan", true));
+        $data['penilaian'] = $this->Sipekerja_Penilaian_model->getPenilaianById($this->input->post("id_kegiatan", true));
         $this->load->view('sipekerja/template/header', $data);
         $this->load->view('sipekerja/penilaian/form');
         $this->load->view('sipekerja/template/footer');
@@ -48,13 +48,13 @@ class Penilaian extends CI_Controller {
     public function edit(){
 
         $data['judul'] = 'Edit';
-        var_dump($this->input->post());
+        // var_dump($this->input->post());
 
-        $coba = $this->Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan', true));
+        $coba = $this->Sipekerja_Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan', true));
         
-        foreach ($this->Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan', true)) as $data):
+        foreach ($this->Sipekerja_Penilaian_model->getIdPenilaianByKegiatan($this->input->post('id_kegiatan', true)) as $data):
             $id = $data['id_penilaian'];
-            $this->Penilaian_model->setPenilaianById($data['id_penilaian'],$this->input->post('kualitas_pekerjaan_'.$id),$this->input->post('ketepatan_waktu_'.$id),$this->input->post('etika_'.$id),$this->input->post('komunikasi_'.$id),$this->input->post('inisiatif_'.$id) );
+            $this->Sipekerja_Penilaian_model->setPenilaianById($data['id_penilaian'],$this->input->post('kualitas_pekerjaan_'.$id),$this->input->post('ketepatan_waktu_'.$id),$this->input->post('etika_'.$id),$this->input->post('komunikasi_'.$id),$this->input->post('inisiatif_'.$id) );
         endforeach;
 
         redirect($this->router->class."/detail/".$this->input->post('id_kegiatan', true));
@@ -69,7 +69,7 @@ class Penilaian extends CI_Controller {
         $data['jenis_sampel'] = $this->input->post('jenis_sampel');
         $data['jenis_bidang'] = $this->input->post('jenis_bidang');
 
-        $data['penilaian'] = $this->Penilaian_model->getPenilaianPerMitra();
+        $data['penilaian'] = $this->Sipekerja_Penilaian_model->getPenilaianPerMitra();
         // var_dump($data);
         $this->load->view('sipekerja/template/header', $data);
         $this->load->view('sipekerja/rekap/daftar_mitra');
@@ -80,8 +80,8 @@ class Penilaian extends CI_Controller {
 
         $data['judul'] = 'Detail Rekap Mitra';
 
-        $data['penilaian'] = $this->Penilaian_model->getPenilaianByMitra($id);
-        $data['mitra'] = $this->Mitra_model->getMitraById($id);
+        $data['penilaian'] = $this->Sipekerja_Penilaian_model->getPenilaianByMitra($id);
+        $data['mitra'] = $this->Sipekerja_Mitra_model->getMitraById($id);
         
         // var_dump($data);
         $this->load->view('sipekerja/template/header', $data);
@@ -97,18 +97,76 @@ class Penilaian extends CI_Controller {
         $data['jenis_sampel'] = $this->input->post('jenis_sampel');
         $data['jenis_bidang'] = $this->input->post('jenis_bidang');
 
-        $data['kegiatan'] = $this->Penilaian_model->getPenilaianPerKegiatan();
-        // var_dump($this->Penilaian_model->getPenilaianPerKegiatan());
+        $data['kegiatan'] = $this->Sipekerja_Penilaian_model->getPenilaianPerKegiatan();
         $this->load->view('sipekerja/template/header', $data);
         $this->load->view('sipekerja/rekap/daftar_kegiatan');
         $this->load->view('sipekerja/template/footer');
     }
 
-    // public function coba(){
+    public function coba(){
+        
+        $this->load->view('coba');
+        
+    }
 
-    //     $data['judul'] = 'Coba';
+    public function export(){
+        require_once dirname(__DIR__).'/third_party/PHPExcel-1.8/Classes/PHPExcel.php';
+        // include APPPATH.'/third_party/PHPExcel/PHPExcel.php';
 
-    //     echo floor(99 / 100, );
-    // }
+        // include APPPATH.'/third_party/PHPExcel-1.8/Classes/PHPExcel.php';
+        // $excel = new PHPExcel;
+        // $excel->getProperties()->setTitle('contoh');
+        // $excel->setActiveSheetIndex(0)->setCellValue('A1', 'Halo');        
+    }
+
+    public function import(){
+
+        include APPPATH.'/third_party/PHPExcel-1.8/Classes/PHPExcel.php';
+        // $this->load->('upload', $config);
+        // $excelreader = new PHPExcel_Reader_Excel2007();
+        // $loadExcel = $excelreader->load($_FILES['file']['name']);
+        // $objWorksheet = $loadExcel->getActiveSheet();
+
+        // $msg = null;
+		// $tanggal = date('Y-m-d');
+		if(!empty($this->input->post()) && !empty($_FILES['file'])) {
+           // print_r($_FILES); exit();
+			// $tanggal = $this->input->post('tanggal');
+
+			// require_once dirname(__DIR__).'/third_party/PHPExcel-1.8/Classes/PHPExcel.php';
+			$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+			$objReader->setReadDataOnly(true);
+			$objPHPExcel = $objReader->load($_FILES['file']['tmp_name']);
+			// $objWorksheet = $objPHPExcel->getActiveSheet();
+
+			// $highestRow = $objWorksheet->getHighestRow();
+			// $highestColumn = $objWorksheet->getHighestColumn();
+			// $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+			
+			// $c = 0;
+            // $p = '';
+			// for ($row = 2; $row <= $highestRow; ++$row) {
+			// 	$id = $objWorksheet->getCellByColumnAndRow(0, $row)->getValue();
+			// 	$nama = str_ireplace("'","`",$objWorksheet->getCellByColumnAndRow(1, $row)->getValue());
+			// 	for ($col = 2; $col <= $highestColumnIndex; ++$col) {
+			// 		$v = str_ireplace("'","`",trim($objWorksheet->getCellByColumnAndRow($col, $row)->getValue()));
+			// 		if(strlen($v)>1){
+			// 			foreach(explode(";", $v) as $x){
+            //                 $p = $p + $x;
+			// 				// if(strlen($x)>5){
+			// 				// 	$this->db->query("INSERT ignore INTO t_revalidasi (tanggal, id_rt, nama, error_msg) VALUES ('".$tanggal."', '".$id."', '".$nama."', '".trim($x)."')");
+			// 				// 	if($this->db->affected_rows())
+			// 				// 		$c++;
+			// 				// }
+			// 			}
+			// 		}
+			// 	}
+			// }
+            
+			// $msg = $_FILES['userfile']['name']."\n".($row-1).' baris, '.$c.' ErrorMsg diproses';
+            // echo $msg;
+            // var_dump($p);
+		}
+    }
 
 }

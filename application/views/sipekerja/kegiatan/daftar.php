@@ -3,7 +3,7 @@
     
     <div class="row mt-3 justify-content-end">
     
-    <a class="col-auto" href="<?= base_url()?>Kegiatan/tambahkan">
+    <a class="col-auto" href="<?= base_url('Kegiatan');?>/tambahkan">
         <button type="button" class="btn btn-success fw-bold">
             + Tambah Kegaitan
         </button>
@@ -13,6 +13,7 @@
         <div class="col-md-12">
             <div class="card mt-3" style="border-color: #abcfff;">
                 <form class="card-body" action="" method="POST">
+                    <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                     <!-- <div class="row">
                         <div class="col-6">
                             <h6>Provinsi</h6>
@@ -135,7 +136,8 @@
                 <div class="modal-content">
                 <div class="modal-body">
                     <p class="card-title fs-5 fw-bold text-center"> Apakah Anda Yakin Ingin Menghapus Penilaian Kinerja Mitra?</p>
-                    <form class="card-body d-flex justify-content-center gap-3 mt-4" action="<?= base_url()?>Kegiatan/hapus" method="POST">
+                    <form class="card-body d-flex justify-content-center gap-3 mt-4" action="<?= base_url('Kegiatan');?>/hapus" method="POST">
+                    <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                         <input type="text" name="id" id="id" class="hide" value="<?= $data['id_kegiatan']?>">
                         <button type="submit" class="btn btn-success fw-bold"> Ya </button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -150,7 +152,8 @@
                 <div class="modal-content">
                 <div class="modal-body">
                     <p class="card-title fs-5 fw-bold text-center"> Apakah Anda Yakin Ingin Mengakhiri Penilaian Kinerja Mitra?</p>
-                    <form class="card-body d-flex justify-content-center gap-3 mt-4" action="<?= base_url()?>Kegiatan/ubah_status" method="POST">
+                    <form class="card-body d-flex justify-content-center gap-3 mt-4" action="<?= base_url('Kegiatan');?>/ubah_status" method="POST">
+                        <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                         <input type="text" name="id" id="id" class="hide" value="<?= $data['id_kegiatan']?>">
                         <input type="text" name="status" status="id" class="hide" value="<?= $data['status']?>">
                         <button type="submit" class="btn btn-success fw-bold"> Ya </button>
@@ -166,7 +169,8 @@
                 <div class="modal-content">
                 <div class="modal-body">
                     <p class="card-title fs-5 fw-bold text-center"> Apakah Anda Yakin Ingin Membuka Penilaian Kinerja Mitra?</p>
-                    <form class="card-body d-flex justify-content-center gap-3 mt-4" action="<?= base_url()?>Kegiatan/ubah_status" method="POST">
+                    <form class="card-body d-flex justify-content-center gap-3 mt-4" action="<?= base_url('Kegiatan');?>/ubah_status" method="POST">
+                    <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                         <input type="text" name="id" id="id" class="hide" value="<?= $data['id_kegiatan']?>">
                         <input type="text" name="status" status="id" class="hide" value="<?= $data['status']?>">
                         <button type="submit" class="btn btn-success fw-bold"> Ya </button>
